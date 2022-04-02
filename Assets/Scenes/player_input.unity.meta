@@ -1,7 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/Scenes/player_input.unity.meta
 guid: 113df491a0f902f45a764988a383557d
+=======
+<<<<<<< Updated upstream:Assets/Scenes/Game.unity.meta
+guid: 884625b35ef35b14688e44b94a99e4ad
+>>>>>>> Stashed changes:Assets/Scenes/Game.unity.meta
 DefaultImporter:
+=======
+guid: 12552b4f8018b0f419e147a677c8b2eb
+NativeFormatImporter:
+>>>>>>> Stashed changes:Assets/Attack.anim.meta
   externalObjects: {}
+  mainObjectFileID: 7400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
