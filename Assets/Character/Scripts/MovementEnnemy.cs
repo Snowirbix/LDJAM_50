@@ -7,6 +7,8 @@ public class MovementEnnemy : MonoBehaviour
     public Transform player;
     public Transform hachoir;
 
+    public float offsetAttack = 0.3f;
+
     private Vector3 position;
 
     public enum State
@@ -51,7 +53,7 @@ public class MovementEnnemy : MonoBehaviour
         {
             state = State.chasingTarget;
         }
-        else if(position.x > this.player.position.x)
+        else if(position.x - offsetAttack > this.player.position.x)
         {
             state = State.attackingTarget;
         }
