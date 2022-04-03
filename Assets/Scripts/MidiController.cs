@@ -23,26 +23,40 @@ public class MidiController : MonoBehaviour
     [ReadOnly]
     public int ticksPerBeat;
 
+    public float bpm = 160f;
+    public float bps;
+    public float tickPerSecond;
+
     public VisualEffect vfx;
 
     private float startTime;
+    private float startMusicTime;
 
     public float timeSpent;
+    public float musicTimeSpent;
 
     private IEnumerator coroutine;
 
     private int intensityId;
 
     private List<Animator> animators = new ();
+    private AudioSource audio;
+
+    public string midiFile = "Music/drum_midi";
 
     private void Start()
     {
-        ParseMidi("Music/cle_velocite_rythm");
+        bps = bpm / 60f;
+        animators = GetComponentsInChildren<Animator>().ToList();
+        audio = this.Q<AudioSource>();
+        ParseMidi(midiFile);
+        tickPerSecond = bps * ticksPerBeat;
+        audio.Play();
         startTime = Time.time;
+        startMusicTime = (float)AudioSettings.dspTime;
         coroutine = CheckTheBeat();
         StartCoroutine(coroutine);
         intensityId = Shader.PropertyToID("Intensity");
-        animators = GetComponentsInChildren<Animator>().ToList();
     }
 
     IEnumerator CheckTheBeat()
@@ -52,21 +66,27 @@ public class MidiController : MonoBehaviour
         {
             var deltaTime = Time.time - startTime;
             timeSpent = deltaTime;
-            if (deltaTime >= notes.Peek().Time / ticksPerBeat)
+            musicTimeSpent = (float)AudioSettings.dspTime - startMusicTime;
+            if (deltaTime >= notes.Peek().Time / tickPerSecond)
             {
                 var note = notes.Dequeue();
-                vfx.SetFloat(intensityId, note.Velocity/128f);
+                var intensity = note.Velocity;
+                while (notes.Peek().Time == note.Time)
+                {
+                    var plusNote = notes.Dequeue();
+                    intensity += plusNote.Velocity;
+                }
+                vfx.SetFloat(intensityId, Mathf.Clamp01(Mathf.Log10(note.Velocity)/2.4f));
                 vfx.Play();
                 var available = animators.FindAll(animator => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
                 var hachoir = available.FirstOrDefault();
-                Debug.Log(hachoir?.gameObject.transform.parent.name);
                 hachoir?.SetTrigger("Prepare");
                 if (notes.Count == 0)
                 {
                     StopCoroutine(coroutine);
                 }
             }
-            yield return new WaitForSeconds(.2f);
+            yield return new WaitForSeconds(.05f);
         }
     }
 
