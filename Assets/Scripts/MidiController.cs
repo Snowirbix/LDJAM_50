@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine.VFX;
 using System.Collections;
 using System;
+using System.Linq;
 
 public class MidiController : MonoBehaviour
 {
@@ -32,17 +33,21 @@ public class MidiController : MonoBehaviour
 
     private int intensityId;
 
+    private List<Animator> animators = new ();
+
     private void Start()
     {
-        ParseMidi("cle_velocite_rythm");
+        ParseMidi("Music/cle_velocite_rythm");
         startTime = Time.time;
         coroutine = CheckTheBeat();
         StartCoroutine(coroutine);
         intensityId = Shader.PropertyToID("Intensity");
+        animators = GetComponentsInChildren<Animator>().ToList();
     }
 
     IEnumerator CheckTheBeat()
     {
+        yield return null;
         while (true)
         {
             var deltaTime = Time.time - startTime;
@@ -52,12 +57,16 @@ public class MidiController : MonoBehaviour
                 var note = notes.Dequeue();
                 vfx.SetFloat(intensityId, note.Velocity/128f);
                 vfx.Play();
+                var available = animators.FindAll(animator => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+                var hachoir = available.FirstOrDefault();
+                Debug.Log(hachoir?.gameObject.transform.parent.name);
+                hachoir?.SetTrigger("Prepare");
                 if (notes.Count == 0)
                 {
                     StopCoroutine(coroutine);
                 }
             }
-            yield return new WaitForSeconds(.05f);
+            yield return new WaitForSeconds(.2f);
         }
     }
 
