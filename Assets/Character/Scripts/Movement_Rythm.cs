@@ -38,7 +38,7 @@ public class Movement_Rythm : MonoBehaviour
         inputActions.Enable();
         inputActions.Player.Jump.performed += _ => Jump();
 
-        forward = Vector3.forward;
+        forward = Vector3.left;
     }
 
     public void Jump()
@@ -54,14 +54,12 @@ public class Movement_Rythm : MonoBehaviour
         movement = inputActions.Player.Movement.ReadValue<Vector2>();
         Vector3 move = transform.right * movement.x;
 
-        
-
-        if(movement.x > 0 && forward.z < 0)
+        if(movement.x < 0 && forward.x < 0)
         {
-            forward = Vector3.forward;
+            forward = Vector3.right;
         }
 
-        if(movement.x < 0 && forward.z > 0)
+        if(movement.x > 0 && forward.x > 0)
         {
             forward = -forward;
         }
@@ -69,11 +67,11 @@ public class Movement_Rythm : MonoBehaviour
         if (characterController.isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
-            characterController.Move(move * speed * Time.deltaTime);
+            characterController.Move(-move * speed * Time.deltaTime);
         }
         else
         {
-            characterController.Move(move * speed * (aerialControlPercentage/100) * Time.deltaTime);
+            characterController.Move(-move * speed * (aerialControlPercentage/100) * Time.deltaTime);
         }
 
         velocity.y += gravity * Time.deltaTime;

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 8718415718844382722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.98, y: 2.14, z: 23.6}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9184160815634854869}
@@ -64,10 +64,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6154436a5d89ea345b8bc0b8e17a123d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 2.5
-  aerialControlPercentage: 65.1
+  jumpHeight: 0.5
+  aerialControlPercentage: 60
   characterTransform: {fileID: 9184160815634854869}
-  speed: 10
+  speed: 3
   delayJump: 0.1
 --- !u!1001 &8718415718498391102
 PrefabInstance:
