@@ -3,7 +3,22 @@ guid: 18e877d59dfe12e4c81c9981301f9565
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BODY
+    second: {fileID: 2100000, guid: 7f999348d2ef4384ba4178b33f5c32ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BOULE
+    second: {fileID: 2100000, guid: c465df40e403f95429e7baf0559f6fe1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HAT1
+    second: {fileID: 2100000, guid: 97bdc86a19348d94d8439f8076786591, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
