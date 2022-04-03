@@ -5,9 +5,11 @@ using UnityEngine;
 public class MovementEnnemy : MonoBehaviour
 {
     public Transform player;
+    public Transform hachoir;
 
+    private Vector3 position;
 
-    private enum State
+    public enum State
     {
         chasingTarget,
         attackingTarget
@@ -17,11 +19,13 @@ public class MovementEnnemy : MonoBehaviour
     [Range(0f,5f)]
     public float speed = 1f;
 
-    public float chaseRange = 3f;
+    public float backwardSpeedo = 2f;
+
+    public float chaseRange = 1f;
 
     private CharacterController characterController;
     private Vector3 direction = Vector3.left;
-    private State state;
+    public State state;
     private Animator animator;
 
 
@@ -30,7 +34,7 @@ public class MovementEnnemy : MonoBehaviour
         player = GameObject.Find("Player").transform;
         characterController = GetComponent<CharacterController>();
         state = State.chasingTarget;
-        //animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Start()
@@ -40,34 +44,41 @@ public class MovementEnnemy : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Distance(this.transform.position, player.position) > chaseRange)
+        position = new Vector3(hachoir.position.x, this.transform.position.y, this.transform.position.z);
+
+
+        if (Vector3.Distance(position, player.position) > chaseRange)
         {
             state = State.chasingTarget;
         }
-        else
+        else if(position.x > this.player.position.x)
         {
             state = State.attackingTarget;
         }
 
-
-        switch (state)
+        if (!animator.GetAnimatorTransitionInfo(0).IsName("Attack"))
         {
-            case State.chasingTarget:
-                    if (this.transform.position.x > this.player.position.x)
+            switch (state)
+            {
+                case State.chasingTarget:
+                    if (position.x > this.player.position.x)
                     {
                         direction = Vector3.left;
                     }
                     else
                     {
-                        direction = Vector3.right;
+                        direction = Vector3.right * backwardSpeedo;
                     }
+                    Debug.Log(direction);
                     characterController.Move(direction * Time.deltaTime * speed);
-            break;
-            case State.attackingTarget:
-                Debug.Log("Attack");
-                animator.SetTrigger("attack");
-            break;
+                    break;
+                case State.attackingTarget:
+                    if (!animator.GetAnimatorTransitionInfo(0).IsName("Attack"))
+                    {
+                        animator.SetTrigger("attack");
+                    }
+                    break;
+            }
         }
-
     }
 }
