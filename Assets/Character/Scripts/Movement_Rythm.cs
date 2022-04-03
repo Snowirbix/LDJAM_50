@@ -33,7 +33,6 @@ public class Movement_Rythm : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
         characterController = GetComponent<CharacterController>();
-        
 
         inputActions = new Character_Controls();
         inputActions.Enable();
@@ -88,6 +87,10 @@ public class Movement_Rythm : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other);
+        if (other.gameObject.name.Contains("Ennemy"))
+        {
+            Debug.Log("touché par un ennemy");
+        }
+        
     }
 }
