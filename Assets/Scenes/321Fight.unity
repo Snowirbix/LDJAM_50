@@ -1085,7 +1085,7 @@ MonoBehaviour:
   Two: {fileID: 1843366638}
   One: {fileID: 875480280}
   Fight: {fileID: 17360434}
-  FightSceneName: Game
+  FightSceneName: HandScene
   OneAudio: {fileID: 817456360}
   TwoAudio: {fileID: 754818766}
   ThreeAudio: {fileID: 1015298886}
