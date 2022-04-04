@@ -36,9 +36,16 @@ public class Movement_Rythm : MonoBehaviour
         inputActions.Enable();
         inputActions.Player.Jump.performed += _ => Jump();
 
+        inputActions.Player.Attack.performed += _ => Attack();
+
         forward = Vector3.left;
         animator = GetComponentInChildren<Animator>();
         health = GetComponent<Health>();
+    }
+
+    public void Attack()
+    {
+        animator.SetTrigger("Attack");
     }
 
     public void Die()
