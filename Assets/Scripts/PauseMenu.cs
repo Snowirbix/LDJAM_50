@@ -13,12 +13,15 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
+    public GameObject HowToPanel;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (IsGamePaused)
             {
+                HowToPanel.SetActive(false);
                 Resume();
             }
             else
@@ -47,5 +50,22 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(MenuSceneName);
         Time.timeScale = 1f;
         IsGamePaused = false;
+    }
+
+    public void HowToPlay ()
+    {
+        pauseMenuUI.SetActive(false);
+        HowToPanel.SetActive(true);
+    }
+
+    public void GoBack()
+    {
+        pauseMenuUI.SetActive(true);
+        HowToPanel.SetActive(false);
+    }
+
+    public void Reload()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
