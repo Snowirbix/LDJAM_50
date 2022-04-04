@@ -157,17 +157,6 @@ public partial class @Character_Controls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""dbecbcae-a5c5-4531-b920-e30bcfa5f1bd"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""71572c30-c5e4-4fac-bed8-d1ae6dd5842f"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
