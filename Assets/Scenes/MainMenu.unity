@@ -1661,7 +1661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b2c752fe0669e446b03e942c5a37189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlaySceneName: Game
+  PlaySceneName: RythmScene
   HowToPanel: {fileID: 1311212195}
 --- !u!114 &1583487597
 MonoBehaviour:
