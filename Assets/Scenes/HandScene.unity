@@ -3600,8 +3600,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
         type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
+        type: 3}
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
+        type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
         type: 3}
@@ -3610,13 +3620,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
         type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1768930604}
+    - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
+        type: 3}
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 264002547}
     - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
         type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
+        type: 3}
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
+        type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeScene
       objectReference: {fileID: 0}
     - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
         type: 3}
@@ -3625,8 +3650,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
         type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TheEnd, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
+        type: 3}
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Healthbar, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
+        type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
+        type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6996059924438296973, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
         type: 3}
@@ -3636,6 +3676,25 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2605722360484358226, guid: 1b9da7fe4b4b41443b8d04735c8a1120, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1b9da7fe4b4b41443b8d04735c8a1120, type: 3}
+--- !u!1 &1768930603 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4010751156985227052, guid: 1b9da7fe4b4b41443b8d04735c8a1120,
+    type: 3}
+  m_PrefabInstance: {fileID: 1768930602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1768930604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768930603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e993317097915ce49852c77ac0d8a24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: CreditsRoll
 --- !u!1 &1780658897 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 678259178384770288, guid: 556c19aefdd4bac49aa58269dc393b17,

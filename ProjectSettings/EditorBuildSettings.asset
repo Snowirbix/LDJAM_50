@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/RythmScene.unity
     guid: 29784ec8c7eaf704d88823a1b584db8e
   - enabled: 1
+    path: Assets/Scenes/321Fight.unity
+    guid: fc0e33da230711c4fa27c93378bd9531
+  - enabled: 1
     path: Assets/Scenes/HandScene.unity
     guid: e03c5f52c5cca1742a1be3541e513ef1
+  - enabled: 1
+    path: Assets/Scenes/CreditsRoll.unity
+    guid: 3a3fe8d8d47131248a243aae4e38b732
   m_configObjects: {}
