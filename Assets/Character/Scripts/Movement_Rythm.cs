@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Movement_Rythm : MonoBehaviour
 {
     private Animator animator;
+    private Health health;
     private CharacterController characterController;
     private Character_Controls inputActions;
     private Vector2 movement;
@@ -22,10 +20,13 @@ public class Movement_Rythm : MonoBehaviour
 
     private Vector3 forward;
 
-    [Range(1,10)]
+    [Range(1, 10)]
     public float speed = 4f;
 
     public float delayJump = 0.1f;
+
+    public float invicibility = 0.5f;
+    private float lastHit = 0f;
 
     private void Awake()
     {
@@ -37,6 +38,12 @@ public class Movement_Rythm : MonoBehaviour
 
         forward = Vector3.left;
         animator = GetComponentInChildren<Animator>();
+        health = GetComponent<Health>();
+    }
+
+    public void Die()
+    {
+        inputActions.Disable();
     }
 
     public void Jump()
@@ -54,12 +61,12 @@ public class Movement_Rythm : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(movement.x));
         Vector3 move = transform.right * movement.x;
 
-        if(movement.x < 0 && forward.x < 0)
+        if (movement.x < 0 && forward.x < 0)
         {
             forward = Vector3.right;
         }
 
-        if(movement.x > 0 && forward.x > 0)
+        if (movement.x > 0 && forward.x > 0)
         {
             forward = -forward;
         }
@@ -71,7 +78,7 @@ public class Movement_Rythm : MonoBehaviour
         }
         else
         {
-            characterController.Move(-move * speed * (aerialControlPercentage/100) * Time.deltaTime);
+            characterController.Move(-move * speed * (aerialControlPercentage / 100) * Time.deltaTime);
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -86,8 +93,15 @@ public class Movement_Rythm : MonoBehaviour
     {
         if (other.gameObject.name.Contains("Ennemy"))
         {
-            Debug.Log("touch� par un ennemy");
+            if (Time.time > lastHit + invicibility)
+            {
+                if (!health.isDead)
+                {
+                    lastHit = Time.time;
+                    health.Damage(10);
+                }
+            }
         }
-        
+
     }
 }

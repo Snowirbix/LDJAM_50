@@ -12,6 +12,10 @@ using System.Linq;
 
 public class MidiController : MonoBehaviour
 {
+    public record Track
+    {
+        public Queue<Note> notes = new();
+    }
     [Serializable]
     public record Note
     {
@@ -19,7 +23,8 @@ public class MidiController : MonoBehaviour
         public int Value { get; set; }
         public float Velocity { get; set; }
     }
-    [ReadOnly]
+    public List<Track> tracks = new ();
+    [Obsolete]
     public Queue<Note> notes = new();
     [ReadOnly]
     public int ticksPerBeat;
@@ -36,22 +41,43 @@ public class MidiController : MonoBehaviour
 
     public float attackDelay = 0.75f;
 
+    public float timeReserved = 1.2f;
+
     private IEnumerator coroutine;
 
     private int intensityId;
 
-    private List<Animator> animators = new();
+    [Serializable]
+    public record Hachoir
+    {
+        public int index;
+        public Animator animator;
+        public bool reserved = false;
+        public int reservedByTrack;
+
+    }
+    public List<Hachoir> hachoirs = new();
     private AudioSource audio;
 
-    public string midiFile = "Music/drum_midi";
+    public string[] midiFiles = new [] { "Music/BASS_MAIN_MIDI" };
 
     private void Start()
     {
         intensityId = Shader.PropertyToID("Intensity");
         bps = bpm / 60f;
-        animators = GetComponentsInChildren<Animator>().ToList();
+        var animators = GetComponentsInChildren<Animator>().ToList();
+        hachoirs = animators.Select((animator, index) => new Hachoir
+        {
+            index = index,
+            animator = animator
+        }).ToList();
         audio = this.Q<AudioSource>();
-        ParseMidi(midiFile);
+        foreach(var midiFile in midiFiles)
+        {
+            var track = new Track();
+            tracks.Add(track);
+            ParseMidi(track, midiFile);
+        }
         tickPerSecond = bps * ticksPerBeat;
         audio.Play();
         startMusicTime = (float)AudioSettings.dspTime;
@@ -59,41 +85,58 @@ public class MidiController : MonoBehaviour
         StartCoroutine(coroutine);
     }
 
+    public void Pause()
+    {
+        var animators = hachoirs.Select(h => h.animator).ToList();
+        animators
+            .FindAll(animator => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            .ForEach(animator => animator.SetBool("Killed", true));
+        
+        animators
+            .FindAll(animator => !animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            .ForEach(animator => animator.speed = 0);
+    }
+
     IEnumerator CheckTheBeat()
     {
+        // kick et clap qui avance
+        // 
         yield return null;
         while (true)
         {
             musicTimer = (float)AudioSettings.dspTime - startMusicTime;
-            if (musicTimer + attackDelay >= (notes.Peek().Time / tickPerSecond))
+            foreach (var track in tracks)
             {
-                var note = notes.Dequeue();
-                var velocity = note.Velocity;
-                while (notes.Peek().Time == note.Time)
+                if (musicTimer + attackDelay >= (track.notes.Peek().Time / tickPerSecond))
                 {
-                    var plusNote = notes.Dequeue();
-                    velocity += plusNote.Velocity;
-                }
-                vfx.Play();
-                var available = animators.FindAll(animator => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
-                // never use all of them
-                if (available.Count > 2)
-                {
-                    var hachoir = available.FirstOrDefault();
-                    hachoir?.SetTrigger("Prepare");
-                    var hachoir2 = available.ElementAtOrDefault(1);
-                    hachoir2?.SetTrigger("Prepare");
-                }
-                if (notes.Count == 0)
-                {
-                    StopCoroutine(coroutine);
+                    var note = track.notes.Dequeue();
+                    var velocity = note.Velocity;
+                    while (track.notes.Peek().Time == note.Time)
+                    {
+                        var plusNote = track.notes.Dequeue();
+                        velocity += plusNote.Velocity;
+                    }
+                    vfx.Play();
+                    var available = hachoirs.FindAll(h => h.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+                    //never use all of them
+                    if (available.Count > 2)
+                    {
+                        var hachoir = available.FirstOrDefault();
+                        hachoir?.animator.SetTrigger("Prepare");
+                        //var hachoir2 = available.ElementAtOrDefault(1);
+                        //hachoir2?.SetTrigger("Prepare");
+                    }
+                    if (track.notes.Count == 0)
+                    {
+                        StopCoroutine(coroutine);
+                    }
                 }
             }
             yield return new WaitForSeconds(.05f);
         }
     }
 
-    public void ParseMidi(string fileName, string extension = "mid")
+    public void ParseMidi(Track track, string fileName, string extension = "mid")
     {
         MidiSequence sequence;
         using (Stream inputStream = File.OpenRead(Application.dataPath + $"/{fileName}.{extension}"))
@@ -104,19 +147,19 @@ public class MidiController : MonoBehaviour
         Debug.Log($"Parse MIDI file: {fileName}");
         Debug.Log($"sequence ticksPerBeat: {sequence.TicksPerBeatOrFrame}");
         ticksPerBeat = sequence.TicksPerBeatOrFrame;
-        Debug.Log($"sequence division: {sequence.Division}");
-        foreach (var track in sequence.Tracks)
+        //Debug.Log($"sequence division: {sequence.Division}");
+        foreach (var t in sequence.Tracks)
         {
             var time = 0f;
-            Debug.Log($"track name: {track.TrackName}");
-            foreach (var evt in track.Events)
+            Debug.Log($"track name: {t.TrackName}");
+            foreach (var evt in t.Events)
             {
                 switch (evt.GetType().ToString())
                 {
                     case "MidiSharp.Events.Meta.TimeSignatureMetaMidiEvent":
                         {
                             var e = (evt as TimeSignatureMetaMidiEvent);
-                            Debug.Log($"TIME event deltatime {e.DeltaTime}; numerator: {e.Numerator}; denominator: {e.Denominator};");
+                            //Debug.Log($"TIME event deltatime {e.DeltaTime}; numerator: {e.Numerator}; denominator: {e.Denominator};");
                         }
                         break;
                     case "MidiSharp.Events.Voice.Note.OnNoteVoiceMidiEvent":
@@ -124,7 +167,7 @@ public class MidiController : MonoBehaviour
                             var e = (evt as NoteVoiceMidiEvent);
                             time += e.DeltaTime;
                             //Debug.Log($"ON_NOTE event note {e.Note} {MidiEvent.GetNoteName(e.Note)}; time: {time}; velocity {e.Parameter2}");
-                            notes.Enqueue(new Note
+                            track.notes.Enqueue(new Note
                             {
                                 Time = time,
                                 Value = e.Note,
@@ -141,7 +184,7 @@ public class MidiController : MonoBehaviour
                         break;
                     default:
                         {
-                            Debug.Log(evt.GetType().ToString());
+                            //Debug.Log(evt.GetType().ToString());
                         }
                         break;
                 }
