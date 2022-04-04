@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Movement_Rythm : MonoBehaviour
 {
-    private Rigidbody rigidbody;
-    private PlayerInput playerInput;
+    private Animator animator;
+    private Health health;
     private CharacterController characterController;
     private Character_Controls inputActions;
     private Vector2 movement;
@@ -23,28 +20,47 @@ public class Movement_Rythm : MonoBehaviour
 
     private Vector3 forward;
 
-    [Range(1,10)]
+    [Range(1, 10)]
     public float speed = 4f;
 
     public float delayJump = 0.1f;
 
+    public float invicibility = 0.5f;
+    private float lastHit = 0f;
+
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        playerInput = GetComponent<PlayerInput>();
         characterController = GetComponent<CharacterController>();
 
         inputActions = new Character_Controls();
         inputActions.Enable();
         inputActions.Player.Jump.performed += _ => Jump();
 
+        inputActions.Player.Attack.performed += _ => Attack();
+
         forward = Vector3.left;
+        animator = GetComponentInChildren<Animator>();
+        health = GetComponent<Health>();
+    }
+
+    public void Attack()
+    {
+        if (!animator.GetCurrentAnimatorStateInfo(1).IsName("ChampAttack"))
+        {
+            animator.SetTrigger("Attack");
+        }
+    }
+
+    public void Die()
+    {
+        inputActions.Disable();
     }
 
     public void Jump()
     {
         if (characterController.isGrounded)
         {
+            animator.SetTrigger("Jump");
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
     }
@@ -52,14 +68,15 @@ public class Movement_Rythm : MonoBehaviour
     private void Update()
     {
         movement = inputActions.Player.Movement.ReadValue<Vector2>();
+        animator.SetFloat("Speed", Mathf.Abs(movement.x));
         Vector3 move = transform.right * movement.x;
 
-        if(movement.x < 0 && forward.x < 0)
+        if (movement.x < 0 && forward.x < 0)
         {
             forward = Vector3.right;
         }
 
-        if(movement.x > 0 && forward.x > 0)
+        if (movement.x > 0 && forward.x > 0)
         {
             forward = -forward;
         }
@@ -71,15 +88,14 @@ public class Movement_Rythm : MonoBehaviour
         }
         else
         {
-            characterController.Move(-move * speed * (aerialControlPercentage/100) * Time.deltaTime);
+            characterController.Move(-move * speed * (aerialControlPercentage / 100) * Time.deltaTime);
         }
 
         velocity.y += gravity * Time.deltaTime;
 
         characterController.Move(velocity * Time.deltaTime);
-        //characterTransform.rotation = characterTransform.rotation * Quaternion.AngleAxis(-1f,Vector3.up);
 
-        characterTransform.rotation = Quaternion.Lerp(characterTransform.rotation, Quaternion.LookRotation(forward), 0.05f);
+        characterTransform.rotation = Quaternion.Lerp(characterTransform.rotation, Quaternion.LookRotation(forward), 0.1f);
 
     }
 
@@ -87,8 +103,15 @@ public class Movement_Rythm : MonoBehaviour
     {
         if (other.gameObject.name.Contains("Ennemy"))
         {
-            Debug.Log("touché par un ennemy");
+            if (Time.time > lastHit + invicibility)
+            {
+                if (!health.isDead)
+                {
+                    lastHit = Time.time;
+                    health.Damage(10);
+                }
+            }
         }
-        
+
     }
 }

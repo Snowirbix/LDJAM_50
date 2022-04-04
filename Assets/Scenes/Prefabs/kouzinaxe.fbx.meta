@@ -11,92 +11,92 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial1
-    second: {fileID: 2100000, guid: 79955c9b624108041b4a99d0b3b1b00b, type: 2}
+    second: {fileID: 2100000, guid: f9a82d419ae41c54eb83d5093da7cb61, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial11
-    second: {fileID: 2100000, guid: 429cf27efef043b4583e5790b6c954ef, type: 2}
+    second: {fileID: 2100000, guid: 821a3b3c4f2cd0c4baf1abbea6b37114, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial12
-    second: {fileID: 2100000, guid: 4453aaa7f0e7c44469858a65692f4799, type: 2}
+    second: {fileID: 2100000, guid: 677236728de080842996556635a44abf, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial13
-    second: {fileID: 2100000, guid: c41fd865a9927a646bb6d33055415cec, type: 2}
+    second: {fileID: 2100000, guid: e86e23d96f4a90748a168c97cdc3f0e4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial14
-    second: {fileID: 2100000, guid: c5ccd476cfc4be5479a2855ce4a80c51, type: 2}
+    second: {fileID: 2100000, guid: dda3b00eb492292488bebe6db7319284, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial15
-    second: {fileID: 2100000, guid: f0f5ba595adce5f4a93ca3b780c08ce2, type: 2}
+    second: {fileID: 2100000, guid: 3993521f6351801438759d86f850f98b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial16
-    second: {fileID: 2100000, guid: 68e3a3904dbb2f046a48bef48cc5d355, type: 2}
+    second: {fileID: 2100000, guid: d210717d32c766d488bd89215e644ce8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial17
-    second: {fileID: 2100000, guid: 1947b9259a027fb4483e0b2179896933, type: 2}
+    second: {fileID: 2100000, guid: 4d1ede31424e97a468abd2df7ddb3c0b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial18
-    second: {fileID: 2100000, guid: 3d126d05089867547a4023694bee019c, type: 2}
+    second: {fileID: 2100000, guid: e2f59c838feea2b4783d2c96f5f3e8ba, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial19
-    second: {fileID: 2100000, guid: 6fe48c41deeed2f43b3607249cfb310b, type: 2}
+    second: {fileID: 2100000, guid: 62a9631227cff0042a9ea1c3c85721c0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial2
-    second: {fileID: 2100000, guid: 8d3f80771cda0a0469301bfc390edeee, type: 2}
+    second: {fileID: 2100000, guid: bea94be94163f5a46a2f11fb1d33dead, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial3
-    second: {fileID: 2100000, guid: 31b7124509075124b9449b3b7cf963c9, type: 2}
+    second: {fileID: 2100000, guid: a40b0e46ce377be4cb9b4a90e2433da6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial4
-    second: {fileID: 2100000, guid: 2ff7aba00d003eb4ebfe34f0d5f38840, type: 2}
+    second: {fileID: 2100000, guid: cbf50774d5bbfdb4c8b0fd48891d70ea, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial5
-    second: {fileID: 2100000, guid: 3239826291214fb4295ecce74dc04d6f, type: 2}
+    second: {fileID: 2100000, guid: eb1c1dd0ecb706f43b777add3c5ad3f2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial6
-    second: {fileID: 2100000, guid: 1009ba74374b8744f840770f6cb4b322, type: 2}
+    second: {fileID: 2100000, guid: 5d720fe43eaef71458976fc835dcb487, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial7
-    second: {fileID: 2100000, guid: 886acf2d8cbbab94a8372457eea37aa4, type: 2}
+    second: {fileID: 2100000, guid: efae3b12dffb7884b9bcb84ab91ff9d2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial8
-    second: {fileID: 2100000, guid: 52c16327c1fef7743be6e2ddf53b74a7, type: 2}
+    second: {fileID: 2100000, guid: fa40c4d67084467428258610cbfbf829, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rsMaterial9
-    second: {fileID: 2100000, guid: 082c637208ef27a46b92ca442439fcff, type: 2}
+    second: {fileID: 2100000, guid: 57712669a38577941b20378cc2ef4352, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -140,7 +140,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -181,7 +181,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.049999997
+    globalScale: 5
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: e8b085f7ee8de904d88d9aee6dc46b04
   - enabled: 1
-    path: Assets/Scenes/Game.unity
-    guid: d935000d85c9fb646b7756417f2be7a8
+    path: Assets/Scenes/RythmScene.unity
+    guid: 29784ec8c7eaf704d88823a1b584db8e
+  - enabled: 1
+    path: Assets/Scenes/HandScene.unity
+    guid: e03c5f52c5cca1742a1be3541e513ef1
   m_configObjects: {}
