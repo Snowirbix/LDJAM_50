@@ -33,7 +33,7 @@ public class MovementEnnemy : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.Find("CHAMPI").transform;
         characterController = GetComponent<CharacterController>();
         state = State.chasingTarget;
         animator = GetComponentInChildren<Animator>();
@@ -46,19 +46,19 @@ public class MovementEnnemy : MonoBehaviour
 
     void Update()
     {
-        position = new Vector3(hachoir.position.x, this.transform.position.y, this.transform.position.z);
+        position = new Vector3(hachoir.position.x, this.player.position.y, this.player.position.z);
 
 
-        if (Vector3.Distance(position, player.position) > chaseRange)
+        if ( Mathf.Abs(position.x - player.position.x) > chaseRange)
         {
             state = State.chasingTarget;
         }
-        else if(position.x - offsetAttack > this.player.position.x)
+        else
         {
             state = State.attackingTarget;
         }
 
-        if (!animator.GetAnimatorTransitionInfo(0).IsName("Attack"))
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             switch (state)
             {
@@ -71,11 +71,10 @@ public class MovementEnnemy : MonoBehaviour
                     {
                         direction = Vector3.right * backwardSpeedo;
                     }
-                    Debug.Log(direction);
                     characterController.Move(direction * Time.deltaTime * speed);
                     break;
                 case State.attackingTarget:
-                    if (!animator.GetAnimatorTransitionInfo(0).IsName("Attack"))
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
                     {
                         animator.SetTrigger("attack");
                     }
