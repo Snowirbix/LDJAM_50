@@ -83,9 +83,9 @@ public class MovementEnnemy : MonoBehaviour
                     characterController.Move(direction * Time.deltaTime * speed);
                     break;
                 case State.attackingTarget:
-                    if(Time.unscaledTime > attackTime+delayAttack)
+                    if(Time.time > attackTime+delayAttack)
                     {
-                        attackTime = Time.unscaledTime;
+                        attackTime = Time.time;
                         switch (Random.Range(1, 3))
                         {
                             case 1:

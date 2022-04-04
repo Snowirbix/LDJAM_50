@@ -45,7 +45,10 @@ public class Movement_Rythm : MonoBehaviour
 
     public void Attack()
     {
-        animator.SetTrigger("Attack");
+        if (!animator.GetCurrentAnimatorStateInfo(1).IsName("ChampAttack"))
+        {
+            animator.SetTrigger("Attack");
+        }
     }
 
     public void Die()
