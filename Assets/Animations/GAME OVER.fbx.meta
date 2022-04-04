@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 0f1fa5a218d55e740892d78a5d760b72
+guid: b050cb983800eaf4caa8f3c269588edb
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
-      74: 744061453431460982
-    second: JUMP
+      74: 1140398524751847258
+    second: GAME OVER
   externalObjects: {}
   materials:
     materialImportMode: 2
