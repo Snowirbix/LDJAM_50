@@ -5,8 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Movement_Rythm : MonoBehaviour
 {
-    private Rigidbody rigidbody;
-    private PlayerInput playerInput;
+    private Animator animator;
     private CharacterController characterController;
     private Character_Controls inputActions;
     private Vector2 movement;
@@ -30,8 +29,6 @@ public class Movement_Rythm : MonoBehaviour
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        playerInput = GetComponent<PlayerInput>();
         characterController = GetComponent<CharacterController>();
 
         inputActions = new Character_Controls();
@@ -39,12 +36,14 @@ public class Movement_Rythm : MonoBehaviour
         inputActions.Player.Jump.performed += _ => Jump();
 
         forward = Vector3.left;
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void Jump()
     {
         if (characterController.isGrounded)
         {
+            animator.SetTrigger("Jump");
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
     }
@@ -52,6 +51,7 @@ public class Movement_Rythm : MonoBehaviour
     private void Update()
     {
         movement = inputActions.Player.Movement.ReadValue<Vector2>();
+        animator.SetFloat("Speed", Mathf.Abs(movement.x));
         Vector3 move = transform.right * movement.x;
 
         if(movement.x < 0 && forward.x < 0)
@@ -79,7 +79,7 @@ public class Movement_Rythm : MonoBehaviour
         characterController.Move(velocity * Time.deltaTime);
         //characterTransform.rotation = characterTransform.rotation * Quaternion.AngleAxis(-1f,Vector3.up);
 
-        characterTransform.rotation = Quaternion.Lerp(characterTransform.rotation, Quaternion.LookRotation(forward), 0.05f);
+        characterTransform.rotation = Quaternion.Lerp(characterTransform.rotation, Quaternion.LookRotation(forward), 0.1f);
 
     }
 

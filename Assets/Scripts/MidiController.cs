@@ -16,6 +16,7 @@ public class MidiController : MonoBehaviour
     public record Note
     {
         public float Time { get; set; }
+        public int Value { get; set; }
         public float Velocity { get; set; }
     }
     [ReadOnly]
@@ -29,34 +30,33 @@ public class MidiController : MonoBehaviour
 
     public VisualEffect vfx;
 
-    private float startTime;
     private float startMusicTime;
 
-    public float timeSpent;
-    public float musicTimeSpent;
+    public float musicTimer;
+
+    public float attackDelay = 0.75f;
 
     private IEnumerator coroutine;
 
     private int intensityId;
 
-    private List<Animator> animators = new ();
+    private List<Animator> animators = new();
     private AudioSource audio;
 
     public string midiFile = "Music/drum_midi";
 
     private void Start()
     {
+        intensityId = Shader.PropertyToID("Intensity");
         bps = bpm / 60f;
         animators = GetComponentsInChildren<Animator>().ToList();
         audio = this.Q<AudioSource>();
         ParseMidi(midiFile);
         tickPerSecond = bps * ticksPerBeat;
         audio.Play();
-        startTime = Time.time;
         startMusicTime = (float)AudioSettings.dspTime;
         coroutine = CheckTheBeat();
         StartCoroutine(coroutine);
-        intensityId = Shader.PropertyToID("Intensity");
     }
 
     IEnumerator CheckTheBeat()
@@ -64,23 +64,26 @@ public class MidiController : MonoBehaviour
         yield return null;
         while (true)
         {
-            var deltaTime = Time.time - startTime;
-            timeSpent = deltaTime;
-            musicTimeSpent = (float)AudioSettings.dspTime - startMusicTime;
-            if (deltaTime >= notes.Peek().Time / tickPerSecond)
+            musicTimer = (float)AudioSettings.dspTime - startMusicTime;
+            if (musicTimer + attackDelay >= (notes.Peek().Time / tickPerSecond))
             {
                 var note = notes.Dequeue();
-                var intensity = note.Velocity;
+                var velocity = note.Velocity;
                 while (notes.Peek().Time == note.Time)
                 {
                     var plusNote = notes.Dequeue();
-                    intensity += plusNote.Velocity;
+                    velocity += plusNote.Velocity;
                 }
-                vfx.SetFloat(intensityId, Mathf.Clamp01(Mathf.Log10(note.Velocity)/2.4f));
                 vfx.Play();
                 var available = animators.FindAll(animator => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
-                var hachoir = available.FirstOrDefault();
-                hachoir?.SetTrigger("Prepare");
+                // never use all of them
+                if (available.Count > 2)
+                {
+                    var hachoir = available.FirstOrDefault();
+                    hachoir?.SetTrigger("Prepare");
+                    var hachoir2 = available.ElementAtOrDefault(1);
+                    hachoir2?.SetTrigger("Prepare");
+                }
                 if (notes.Count == 0)
                 {
                     StopCoroutine(coroutine);
@@ -120,10 +123,11 @@ public class MidiController : MonoBehaviour
                         {
                             var e = (evt as NoteVoiceMidiEvent);
                             time += e.DeltaTime;
-                            Debug.Log($"ON_NOTE event note {e.Note} {MidiEvent.GetNoteName(e.Note)}; time: {time}; velocity {e.Parameter2}");
+                            //Debug.Log($"ON_NOTE event note {e.Note} {MidiEvent.GetNoteName(e.Note)}; time: {time}; velocity {e.Parameter2}");
                             notes.Enqueue(new Note
                             {
                                 Time = time,
+                                Value = e.Note,
                                 Velocity = e.Parameter2
                             });
                         }
