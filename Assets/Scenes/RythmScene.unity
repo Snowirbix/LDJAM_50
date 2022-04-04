@@ -4095,7 +4095,7 @@ PrefabInstance:
     - target: {fileID: 5697052076812101141, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}
       propertyPath: kickFile
-      value: Music/KICK_MIDI
+      value: Resources/KICK_MIDI
       objectReference: {fileID: 0}
     - target: {fileID: 5697052076812101141, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}
@@ -4110,12 +4110,12 @@ PrefabInstance:
     - target: {fileID: 5697052076812101141, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}
       propertyPath: randomFile
-      value: Music/HARMONY_2_MIDI
+      value: Resources/HARMONY_2_MIDI
       objectReference: {fileID: 0}
     - target: {fileID: 5697052076812101141, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}
       propertyPath: harmonyFile
-      value: Music/BASS_MAIN_MIDI
+      value: Resources/BASS_MAIN_MIDI
       objectReference: {fileID: 0}
     - target: {fileID: 5697052076812101141, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}

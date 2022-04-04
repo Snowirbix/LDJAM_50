@@ -140,7 +140,7 @@ public class MidiController : MonoBehaviour
                     while (kickTrack.notes.Peek().Time == note.Time)
                     {
                         kickTrack.notes.Dequeue();
-                    hachoirs[harmonyHachoir].animator.SetTrigger("Prepare");
+                        hachoirs[harmonyHachoir].animator.SetTrigger("Prepare");
                         harmonyHachoir = (harmonyHachoir + 1) % 6;
                     }
                 }
