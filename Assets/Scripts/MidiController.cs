@@ -23,9 +23,12 @@ public class MidiController : MonoBehaviour
         public int Value { get; set; }
         public float Velocity { get; set; }
     }
-    public List<Track> tracks = new ();
-    [Obsolete]
-    public Queue<Note> notes = new();
+    public string kickFile;
+    public Track kickTrack = new ();
+    public string harmonyFile;
+    public Track harmonyTrack = new ();
+    public string randomFile;
+    public Track randomTrack = new ();
     [ReadOnly]
     public int ticksPerBeat;
 
@@ -41,7 +44,7 @@ public class MidiController : MonoBehaviour
 
     public float attackDelay = 0.75f;
 
-    public float timeReserved = 1.2f;
+    public float timeReserved = 2f;
 
     private IEnumerator coroutine;
 
@@ -54,12 +57,12 @@ public class MidiController : MonoBehaviour
         public Animator animator;
         public bool reserved = false;
         public int reservedByTrack;
-
     }
+
     public List<Hachoir> hachoirs = new();
     private AudioSource audio;
 
-    public string[] midiFiles = new [] { "Music/BASS_MAIN_MIDI" };
+    private int kickHachoir = 0;
 
     private void Start()
     {
@@ -72,12 +75,11 @@ public class MidiController : MonoBehaviour
             animator = animator
         }).ToList();
         audio = this.Q<AudioSource>();
-        foreach(var midiFile in midiFiles)
-        {
-            var track = new Track();
-            tracks.Add(track);
-            ParseMidi(track, midiFile);
-        }
+        
+        ParseMidi(kickTrack, kickFile);
+        ParseMidi(harmonyTrack, harmonyFile);
+        ParseMidi(randomTrack, randomFile);
+
         tickPerSecond = bps * ticksPerBeat;
         audio.Play();
         startMusicTime = (float)AudioSettings.dspTime;
@@ -88,13 +90,13 @@ public class MidiController : MonoBehaviour
     public void Pause()
     {
         var animators = hachoirs.Select(h => h.animator).ToList();
-        animators
-            .FindAll(animator => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-            .ForEach(animator => animator.SetBool("Killed", true));
+        var idle = animators.FindAll(animator => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+        idle.ForEach(animator => animator.SetBool("Killed", true));
+        idle.ForEach(animator => animator.speed = 0.1f);
         
         animators
             .FindAll(animator => !animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-            .ForEach(animator => animator.speed = 0);
+            .ForEach(animator => animator.speed = 0f);
     }
 
     IEnumerator CheckTheBeat()
@@ -105,32 +107,52 @@ public class MidiController : MonoBehaviour
         while (true)
         {
             musicTimer = (float)AudioSettings.dspTime - startMusicTime;
-            foreach (var track in tracks)
+            //if (musicTimer + timeReserved >= (track.notes.Peek().Time / tickPerSecond))
+            //{
+            //}
+            if (harmonyTrack.notes.Count > 0)
             {
-                if (musicTimer + attackDelay >= (track.notes.Peek().Time / tickPerSecond))
+                //if (musicTimer + attackDelay >= (harmonyTrack.notes.Peek().Time / tickPerSecond))
+                //{
+                //    var note = harmonyTrack.notes.Dequeue();
+                //    var h = hachoirs[kickHachoir];
+                //    h?.animator.SetTrigger("Prepare");
+                //    kickHachoir = (kickHachoir + 1) % hachoirs.Count;
+                //    while (harmonyTrack.notes.Peek().Time == note.Time)
+                //    {
+                //        harmonyTrack.notes.Dequeue();
+                //        var h2 = hachoirs[kickHachoir];
+                //        h2?.animator.SetTrigger("Prepare");
+                //        kickHachoir = (kickHachoir + 1) % hachoirs.Count;
+                //        Debug.Log("multiple");
+                //    }
+                //    //vfx.Play();
+                //    //never use all of them
+                //}
+            }
+            if (kickTrack.notes.Count > 0)
+            {
+                if (musicTimer + attackDelay >= (kickTrack.notes.Peek().Time / tickPerSecond))
                 {
-                    var note = track.notes.Dequeue();
-                    var velocity = note.Velocity;
-                    while (track.notes.Peek().Time == note.Time)
+                    var note = kickTrack.notes.Dequeue();
+                    var h = hachoirs[kickHachoir];
+                    h?.animator.SetTrigger("Prepare");
+                    kickHachoir = (kickHachoir + 1) % hachoirs.Count;
+                    while (kickTrack.notes.Peek().Time == note.Time)
                     {
-                        var plusNote = track.notes.Dequeue();
-                        velocity += plusNote.Velocity;
+                        kickTrack.notes.Dequeue();
+                        var h2 = hachoirs[kickHachoir];
+                        h2?.animator.SetTrigger("Prepare");
+                        kickHachoir = (kickHachoir + 1) % hachoirs.Count;
+                        Debug.Log("multiple");
                     }
-                    vfx.Play();
-                    var available = hachoirs.FindAll(h => h.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+                    //vfx.Play();
                     //never use all of them
-                    if (available.Count > 2)
-                    {
-                        var hachoir = available.FirstOrDefault();
-                        hachoir?.animator.SetTrigger("Prepare");
-                        //var hachoir2 = available.ElementAtOrDefault(1);
-                        //hachoir2?.SetTrigger("Prepare");
-                    }
-                    if (track.notes.Count == 0)
-                    {
-                        StopCoroutine(coroutine);
-                    }
                 }
+            }
+            if (kickTrack.notes.Count == 0 && harmonyTrack.notes.Count == 0 && randomTrack.notes.Count == 0)
+            {
+                StopCoroutine(coroutine);
             }
             yield return new WaitForSeconds(.05f);
         }
