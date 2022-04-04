@@ -9,6 +9,10 @@ public class MainMenu : MonoBehaviour
 
     public GameObject HowToPanel;
 
+    public Animator FadeAnimator;
+    public GameObject FadeImage;
+
+
     public void PlayGame()
     {
         StartCoroutine(PlayCoroutine());
@@ -16,6 +20,8 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator PlayCoroutine()
     {
+        FadeImage.SetActive(true);
+        FadeAnimator.SetTrigger("Fade");
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene(PlaySceneName);
     }
