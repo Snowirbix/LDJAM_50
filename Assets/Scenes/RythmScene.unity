@@ -216,7 +216,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6374fe946dfbba8488d0f2a2323a87bf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.15
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -449,7 +449,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6374fe946dfbba8488d0f2a2323a87bf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.15
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -708,7 +708,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6374fe946dfbba8488d0f2a2323a87bf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.15
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -923,7 +923,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6374fe946dfbba8488d0f2a2323a87bf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.15
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1084,7 +1084,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6374fe946dfbba8488d0f2a2323a87bf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.15
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4095,7 +4095,7 @@ PrefabInstance:
     - target: {fileID: 5697052076812101141, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}
       propertyPath: kickFile
-      value: Resources/KICK_MIDI
+      value: KICK.mid
       objectReference: {fileID: 0}
     - target: {fileID: 5697052076812101141, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}
@@ -4110,12 +4110,12 @@ PrefabInstance:
     - target: {fileID: 5697052076812101141, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}
       propertyPath: randomFile
-      value: Resources/HARMONY_2_MIDI
+      value: HARMONY_2_MIDI.mid
       objectReference: {fileID: 0}
     - target: {fileID: 5697052076812101141, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}
       propertyPath: harmonyFile
-      value: Resources/BASS_MAIN_MIDI
+      value: BASS_MAIN_MIDI.mid
       objectReference: {fileID: 0}
     - target: {fileID: 5697052076812101141, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}
@@ -4325,7 +4325,7 @@ PrefabInstance:
     - target: {fileID: 7088316169261791463, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}
       propertyPath: m_Volume
-      value: 0.15
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7261304399942619963, guid: 3ba2233717db5c34597cc0461dc9fafe,
         type: 3}
@@ -4801,7 +4801,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6374fe946dfbba8488d0f2a2323a87bf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.15
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5428,7 +5428,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6374fe946dfbba8488d0f2a2323a87bf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.15
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5660,7 +5660,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6374fe946dfbba8488d0f2a2323a87bf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.15
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5772,6 +5772,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992556968612427320, guid: ef1ff8c798b88a442a1b4693b227c38a,
+        type: 3}
+      propertyPath: maxHealth
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3992556968612427320, guid: ef1ff8c798b88a442a1b4693b227c38a,
         type: 3}

@@ -1,11 +1,11 @@
 using UnityEngine;
 using MidiSharp;
 using System.IO;
-using MidiSharp.Events;
 using MidiSharp.Events.Voice.Note;
 using MidiSharp.Events.Meta;
 using System.Collections.Generic;
 using UnityEngine.VFX;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
 using System.Linq;
@@ -45,7 +45,7 @@ public class MidiController : MonoBehaviour
 
     public float attackDelay = 0.75f;
 
-    public float timeReserved = 2f;
+    public float reloadDelay = 1.5f;
 
     private IEnumerator coroutine;
 
@@ -56,15 +56,15 @@ public class MidiController : MonoBehaviour
     {
         public int index;
         public Animator animator;
-        public bool reserved = false;
-        public int reservedByTrack;
+        public float lastAttack = 0f;
     }
 
     public List<Hachoir> hachoirs = new();
     private AudioSource audio;
 
     private int kickHachoir = 0;
-    private int harmonyHachoir = 0;
+
+    private System.Random rand = new ();
 
     private void Start()
     {
@@ -103,15 +103,11 @@ public class MidiController : MonoBehaviour
 
     IEnumerator CheckTheBeat()
     {
-        // kick et clap qui avance
-        // 
         yield return null;
         while (true)
         {
             musicTimer = (float)AudioSettings.dspTime - startMusicTime;
-            //if (musicTimer + timeReserved >= (track.notes.Peek().Time / tickPerSecond))
-            //{
-            //}
+
             if (kickTrack.notes.Count > 0 && musicTimer < kickTime)
             {
                 if (musicTimer + attackDelay >= (kickTrack.notes.Peek().Time / tickPerSecond))
@@ -127,7 +123,11 @@ public class MidiController : MonoBehaviour
                     {
                         kickTrack.notes.Dequeue();
                     }
-                    //never use all of them
+                    //while (harmonyTrack.notes.Peek().Time <= note.Time)
+                    //{
+                    //    // drop harmony notes past
+                    //    var n = harmonyTrack.notes.Dequeue();
+                    //}
                 }
             }
             else if (harmonyTrack.notes.Count > 0)
@@ -135,15 +135,20 @@ public class MidiController : MonoBehaviour
                 if (musicTimer + attackDelay >= (harmonyTrack.notes.Peek().Time / tickPerSecond))
                 {
                     var note = harmonyTrack.notes.Dequeue();
-                    hachoirs[harmonyHachoir].animator.SetTrigger("Prepare");
-                    harmonyHachoir = (harmonyHachoir + 1) % 6;
-                    while (kickTrack.notes.Peek().Time == note.Time)
+                    var h = hachoirs[kickHachoir];
+                    h?.animator.SetTrigger("Prepare");
+                    kickHachoir = (kickHachoir + 2) % hachoirs.Count;
+                    while (harmonyTrack.notes.Peek().Time == note.Time)
                     {
-                        kickTrack.notes.Dequeue();
-                        hachoirs[harmonyHachoir].animator.SetTrigger("Prepare");
-                        harmonyHachoir = (harmonyHachoir + 1) % 6;
+                         harmonyTrack.notes.Dequeue();
                     }
                 }
+            }
+
+            if (musicTimer >= 85)
+            {
+                EndGame();
+                StopCoroutine(coroutine);
             }
             
             if (kickTrack.notes.Count == 0 && harmonyTrack.notes.Count == 0 && randomTrack.notes.Count == 0)
@@ -157,15 +162,16 @@ public class MidiController : MonoBehaviour
 
     public void EndGame()
     {
-
+        SceneManager.LoadScene("321Fight");
     }
 
-    public void ParseMidi(Track track, string fileName, string extension = "mid")
+    public void ParseMidi(Track track, string fileName)
     {
         MidiSequence sequence;
-        using (Stream inputStream = File.OpenRead(Application.dataPath + $"/{fileName}.{extension}"))
+        var midi = Resources.Load(fileName) as TextAsset;
+        using (Stream stream = new MemoryStream(midi.bytes))
         {
-            sequence = MidiSequence.Open(inputStream);
+            sequence = MidiSequence.Open(stream);
         }
 
         Debug.Log($"Parse MIDI file: {fileName}");
