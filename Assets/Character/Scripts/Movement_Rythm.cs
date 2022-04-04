@@ -77,7 +77,6 @@ public class Movement_Rythm : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         characterController.Move(velocity * Time.deltaTime);
-        //characterTransform.rotation = characterTransform.rotation * Quaternion.AngleAxis(-1f,Vector3.up);
 
         characterTransform.rotation = Quaternion.Lerp(characterTransform.rotation, Quaternion.LookRotation(forward), 0.1f);
 
@@ -87,7 +86,7 @@ public class Movement_Rythm : MonoBehaviour
     {
         if (other.gameObject.name.Contains("Ennemy"))
         {
-            Debug.Log("touché par un ennemy");
+            Debug.Log("touchï¿½ par un ennemy");
         }
         
     }

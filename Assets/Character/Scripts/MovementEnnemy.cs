@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MovementEnnemy : MonoBehaviour
 {
     public Transform player;
     public Transform hachoir;
+
+    public float delayAttack = 3f;
+    private float attackTime;
 
     public float offsetAttack = 0.3f;
 
@@ -30,6 +34,7 @@ public class MovementEnnemy : MonoBehaviour
     public State state;
     private Animator animator;
 
+    public List<string> attacksNames = new List<string>();
 
     private void Awake()
     {
@@ -37,6 +42,10 @@ public class MovementEnnemy : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         state = State.chasingTarget;
         animator = GetComponentInChildren<Animator>();
+
+        attacksNames.Add("Attack");
+        attacksNames.Add("TchakTchakTchak");
+        attackTime = 0f;
     }
 
     void Start()
@@ -58,7 +67,7 @@ public class MovementEnnemy : MonoBehaviour
             state = State.attackingTarget;
         }
 
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        if (IsNotAttacking())
         {
             switch (state)
             {
@@ -74,12 +83,30 @@ public class MovementEnnemy : MonoBehaviour
                     characterController.Move(direction * Time.deltaTime * speed);
                     break;
                 case State.attackingTarget:
-                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                    if(Time.unscaledTime > attackTime+delayAttack)
                     {
-                        animator.SetTrigger("attack");
+                        attackTime = Time.unscaledTime;
+                        switch (Random.Range(1, 3))
+                        {
+                            case 1:
+                                animator.SetTrigger("attack");
+                                break;
+                            case 2:
+                                animator.SetTrigger("tchaktchaktchak");
+                                break;
+                        }
                     }
                     break;
             }
         }
+    }
+
+    private bool IsNotAttacking()
+    {
+        AnimatorStateInfo animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        string name = attacksNames.Find(attackName => animatorStateInfo.IsName(attackName));
+
+        return name == null;
     }
 }
