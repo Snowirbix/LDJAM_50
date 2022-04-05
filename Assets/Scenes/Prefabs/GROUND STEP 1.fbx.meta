@@ -8,27 +8,27 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: bkacground1_ASSIETTES1
-    second: {fileID: 2100000, guid: b86c68412a41e864c9f618cbe968f791, type: 2}
+    second: {fileID: 2100000, guid: 28e06c7c99f2ae04a823a03d680bcf5c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: bkacground1_COUTEAU
-    second: {fileID: 2100000, guid: 79004e34f9151e24c91d42a6ea4cf3af, type: 2}
+    second: {fileID: 2100000, guid: f98b4c1d420573c48962726d35afb83f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: bkacground1_PLANCHE_A_DECOUPER1
-    second: {fileID: 2100000, guid: 16260125810e18146957ef46f129b48d, type: 2}
+    second: {fileID: 2100000, guid: 6d5452e78470f324d88c30b0cb7b74a7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: bkacground1_TABLE1
-    second: {fileID: 2100000, guid: ae328ab323908a7439bf39d78dbef187, type: 2}
+    second: {fileID: 2100000, guid: 6d8d55e614470e64f834febb3686b0b9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: bkacground1_VERRE
-    second: {fileID: 2100000, guid: 386293a7d8ba37f469fc4c14eb24a290, type: 2}
+    second: {fileID: 2100000, guid: d7abf576d7d9d8f4aa305d4cc5c2b594, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
