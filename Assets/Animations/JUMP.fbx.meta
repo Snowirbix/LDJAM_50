@@ -6,7 +6,22 @@ ModelImporter:
   - first:
       74: 744061453431460982
     second: JUMP
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BODY_VRAI
+    second: {fileID: 2100000, guid: 4e03520cd14137742b777ad54c197d3a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BOULE_VRAI
+    second: {fileID: 2100000, guid: 1ece25e5d38fe0a4d9f1b4ad5f7c1b75, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HAT2
+    second: {fileID: 2100000, guid: c28caed3d1158774892fafb880bd7e7a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

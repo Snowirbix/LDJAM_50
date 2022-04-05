@@ -278,6 +278,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd1700578026d54ea823da448d2ae24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kickFile: 
+  kickTime: 0
+  harmonyFile: 
+  randomFile: 
   ticksPerBeat: 0
   bpm: 160
   bps: 0
@@ -285,10 +289,8 @@ MonoBehaviour:
   vfx: {fileID: 0}
   musicTimer: 0
   attackDelay: 0.75
-  timeReserved: 2
+  reloadDelay: 1.5
   hachoirs: []
-  midiFiles:
-  - Music/BASS_MAIN_MIDI
 --- !u!82 &5697052076812101140
 AudioSource:
   m_ObjectHideFlags: 0
@@ -299,7 +301,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 81a60fd0372d2354e8461e13e6d1038f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c268d7200045ebf47a52f9b8dc69657c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
