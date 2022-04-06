@@ -11,17 +11,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BODY_VRAI
-    second: {fileID: 2100000, guid: 4e03520cd14137742b777ad54c197d3a, type: 2}
+    second: {fileID: 2100000, guid: 7f999348d2ef4384ba4178b33f5c32ec, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BOULE_VRAI
-    second: {fileID: 2100000, guid: 1ece25e5d38fe0a4d9f1b4ad5f7c1b75, type: 2}
+    second: {fileID: 2100000, guid: c465df40e403f95429e7baf0559f6fe1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: HAT2
-    second: {fileID: 2100000, guid: c28caed3d1158774892fafb880bd7e7a, type: 2}
+    second: {fileID: 2100000, guid: 97bdc86a19348d94d8439f8076786591, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -116,7 +116,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
