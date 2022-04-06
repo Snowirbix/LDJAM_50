@@ -131,7 +131,7 @@ Material:
     - _ZWrite: 1
     - _smoothnessMult: 1
     m_Colors:
-    - _Albedo: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
+    - _Albedo: {r: 5.992157, g: 5.992157, b: 5.992157, a: 1}
     - _BaseColor: {r: 0.38431364, g: 0.36470586, b: 0.345098, a: 1}
     - _Color: {r: 0.3843136, g: 0.36470583, b: 0.34509796, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
