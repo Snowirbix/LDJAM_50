@@ -114,7 +114,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _Metallic: 0
-    - _Metalness: 1
+    - _Metalness: 0.8
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -129,7 +129,9 @@ Material:
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _smoothnessMult: 1
     m_Colors:
+    - _Albedo: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
     - _BaseColor: {r: 0.36074686, g: 0.29666647, b: 0.25489545, a: 1}
     - _Color: {r: 0.36074683, g: 0.29666644, b: 0.25489542, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
