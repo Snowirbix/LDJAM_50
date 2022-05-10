@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Movement_Rythm : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class Movement_Rythm : MonoBehaviour
     public float invicibility = 0.5f;
     private float lastHit = 0f;
 
+    public VisualEffect attackSlash;
+    public AudioSource slashSound;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -48,6 +52,9 @@ public class Movement_Rythm : MonoBehaviour
         if (!animator.GetCurrentAnimatorStateInfo(1).IsName("ChampAttack"))
         {
             animator.SetTrigger("Attack");
+            slashSound.Play();
+            attackSlash.Play();
+            velocity.y = Mathf.Sqrt(jumpHeight * 0.5f * -2f * gravity);
         }
     }
 
@@ -101,7 +108,7 @@ public class Movement_Rythm : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("Ennemy"))
+        if (other.gameObject.name.Contains("Enemy"))
         {
             if (Time.time > lastHit + invicibility)
             {

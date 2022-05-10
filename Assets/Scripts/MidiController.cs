@@ -9,13 +9,10 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
 using System.Linq;
+using MidiSharp.Events;
 
 public class MidiController : MonoBehaviour
 {
-    public record Track
-    {
-        public Queue<Note> notes = new();
-    }
     [Serializable]
     public record Note
     {
@@ -23,13 +20,9 @@ public class MidiController : MonoBehaviour
         public int Value { get; set; }
         public float Velocity { get; set; }
     }
-    public string kickFile;
-    public Track kickTrack = new();
-    public float kickTime;
-    public string harmonyFile;
-    public Track harmonyTrack = new();
-    public string randomFile;
-    public Track randomTrack = new();
+    public string midiFile;
+    public Queue<Note> notes = new();
+
     [ReadOnly]
     public int ticksPerBeat;
 
@@ -64,8 +57,6 @@ public class MidiController : MonoBehaviour
 
     private int kickHachoir = 0;
 
-    private System.Random rand = new ();
-
     private void Start()
     {
         intensityId = Shader.PropertyToID("Intensity");
@@ -78,9 +69,7 @@ public class MidiController : MonoBehaviour
         }).ToList();
         audio = this.Q<AudioSource>();
 
-        ParseMidi(kickTrack, kickFile);
-        ParseMidi(harmonyTrack, harmonyFile);
-        //ParseMidi(randomTrack, randomFile);
+        ParseMidi(midiFile);
 
         tickPerSecond = bps * ticksPerBeat;
         audio.Play();
@@ -107,51 +96,22 @@ public class MidiController : MonoBehaviour
         while (true)
         {
             musicTimer = (float)AudioSettings.dspTime - startMusicTime;
-
-            if (kickTrack.notes.Count > 0 && musicTimer < kickTime)
+            if (notes.Count > 0)
             {
-                if (musicTimer + attackDelay >= (kickTrack.notes.Peek().Time / tickPerSecond))
+                if (musicTimer + attackDelay >= (notes.Peek().Time / tickPerSecond))
                 {
-                    var note = kickTrack.notes.Dequeue();
-                    var h = hachoirs[kickHachoir];
-                    h?.animator.SetTrigger("Prepare");
-                    kickHachoir = (kickHachoir + 1) % hachoirs.Count;
-                    var h2 = hachoirs[kickHachoir];
-                    h2?.animator.SetTrigger("Prepare");
-                    kickHachoir = (kickHachoir + 1) % hachoirs.Count;
-                    while (kickTrack.notes.Peek().Time == note.Time)
-                    {
-                        kickTrack.notes.Dequeue();
-                    }
-                    //while (harmonyTrack.notes.Peek().Time <= note.Time)
-                    //{
-                    //    // drop harmony notes past
-                    //    var n = harmonyTrack.notes.Dequeue();
-                    //}
-                }
-            }
-            else if (harmonyTrack.notes.Count > 0)
-            {
-                if (musicTimer + attackDelay >= (harmonyTrack.notes.Peek().Time / tickPerSecond))
-                {
-                    var note = harmonyTrack.notes.Dequeue();
-                    var h = hachoirs[kickHachoir];
+                    var note = notes.Dequeue();
+                    var h = hachoirs[note.Value-60];
                     h?.animator.SetTrigger("Prepare");
                     kickHachoir = (kickHachoir + 2) % hachoirs.Count;
-                    while (harmonyTrack.notes.Peek().Time == note.Time)
+                    while (notes.Peek().Time == note.Time)
                     {
-                         harmonyTrack.notes.Dequeue();
+                         notes.Dequeue();
                     }
                 }
             }
 
-            if (musicTimer >= 85)
-            {
-                EndGame();
-                StopCoroutine(coroutine);
-            }
-            
-            if (kickTrack.notes.Count == 0 && harmonyTrack.notes.Count == 0 && randomTrack.notes.Count == 0)
+            if (notes.Count == 0)
             {
                 EndGame();
                 StopCoroutine(coroutine);
@@ -165,7 +125,7 @@ public class MidiController : MonoBehaviour
         SceneManager.LoadScene("321Fight");
     }
 
-    public void ParseMidi(Track track, string fileName)
+    public void ParseMidi(string fileName)
     {
         MidiSequence sequence;
         var midi = Resources.Load(fileName) as TextAsset;
@@ -196,8 +156,8 @@ public class MidiController : MonoBehaviour
                         {
                             var e = (evt as NoteVoiceMidiEvent);
                             time += e.DeltaTime;
-                            //Debug.Log($"ON_NOTE event note {e.Note} {MidiEvent.GetNoteName(e.Note)}; time: {time}; velocity {e.Parameter2}");
-                            track.notes.Enqueue(new Note
+                            Debug.Log($"ON_NOTE event note {e.Note} {MidiEvent.GetNoteName(e.Note)}; time: {time}; velocity {e.Parameter2}");
+                            notes.Enqueue(new Note
                             {
                                 Time = time,
                                 Value = e.Note,
