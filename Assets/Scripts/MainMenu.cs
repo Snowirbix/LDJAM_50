@@ -15,15 +15,20 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
+        FadeAnimator.SetTrigger("Fade");
         StartCoroutine(PlayCoroutine());
     }
 
     IEnumerator PlayCoroutine()
     {
-        FadeImage.SetActive(true);
-        FadeAnimator.SetTrigger("Fade");
-        yield return new WaitForSeconds(5);
-        SceneManager.LoadScene(PlaySceneName);
+        Application.backgroundLoadingPriority = ThreadPriority.BelowNormal;
+        yield return new WaitForSeconds(1);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(PlaySceneName);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 
     public void HowToPlay()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.VFX;
 
 public class Movement_Rythm : MonoBehaviour
@@ -32,12 +33,16 @@ public class Movement_Rythm : MonoBehaviour
     public VisualEffect attackSlash;
     public AudioSource slashSound;
 
+    public Transform travellingPoint;
+    public Vector3 travellingOrigin;
+    
+    public UnityEvent attackEvent;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
 
         inputActions = new Character_Controls();
-        inputActions.Enable();
         inputActions.Player.Jump.performed += _ => Jump();
 
         inputActions.Player.Attack.performed += _ => Attack();
@@ -45,12 +50,25 @@ public class Movement_Rythm : MonoBehaviour
         forward = Vector3.left;
         animator = GetComponentInChildren<Animator>();
         health = GetComponent<Health>();
+
+        travellingOrigin = travellingPoint.position;
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Disable();
     }
 
     public void Attack()
     {
         if (!animator.GetCurrentAnimatorStateInfo(1).IsName("ChampAttack"))
         {
+            attackEvent.Invoke();
             animator.SetTrigger("Attack");
             slashSound.Play();
             attackSlash.Play();
@@ -104,6 +122,8 @@ public class Movement_Rythm : MonoBehaviour
 
         characterTransform.rotation = Quaternion.Lerp(characterTransform.rotation, Quaternion.LookRotation(forward), 0.1f);
 
+        var posX = (characterTransform.position.x - travellingOrigin.x) * 0.5f;
+        travellingPoint.position = new Vector3(travellingOrigin.x + posX, travellingPoint.position.y, travellingPoint.position.z);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -116,6 +136,7 @@ public class Movement_Rythm : MonoBehaviour
                 {
                     lastHit = Time.time;
                     health.Damage(10);
+                    animator.SetTrigger("Hit");
                 }
             }
         }

@@ -1661,7 +1661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b2c752fe0669e446b03e942c5a37189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlaySceneName: RythmScene
+  PlaySceneName: HandScene
   HowToPanel: {fileID: 1311212195}
   FadeAnimator: {fileID: 1611772539}
   FadeImage: {fileID: 1611772537}
@@ -1768,7 +1768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1611772538
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1818,8 +1818,8 @@ CanvasGroup:
   m_GameObject: {fileID: 1611772537}
   m_Enabled: 1
   m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1611772541
 MonoBehaviour:
@@ -1835,7 +1835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
