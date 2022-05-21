@@ -22,23 +22,27 @@ public class Rumbler : MonoBehaviour
 
     public void Update()
     {
-        var time = Time.time;
-
-        var intensity = rumblerObjects
-            .Aggregate(Vector2.zero, (a, r) =>
-            {
-                var dt = time - r.Value;
-                if (dt < r.Key.lowCurve.keys.Last().time)
-                {
-                    a.x = Mathf.Max(a.x, r.Key.lowCurve.Evaluate(dt));
-                }
-                if (dt < r.Key.highCurve.keys.Last().time)
-                {
-                    a.y = Mathf.Max(a.y, r.Key.highCurve.Evaluate(dt));
-                }
-                return a;
-            });
-
+        var intensity = rumblerObjects.Aggregate(Vector2.zero, GetHighestIntensity);
         Gamepad.current.SetMotorSpeeds(intensity.x, intensity.y);
+    }
+
+
+    private Vector2 GetHighestIntensity(Vector2 intensity, KeyValuePair<RumblerObject,float> rumbler)
+    {
+        var deltaTime = Time.time - rumbler.Value;
+
+        intensity.x = GetMaxValue(intensity.x, rumbler.Key.lowCurve, deltaTime);
+        intensity.y = GetMaxValue(intensity.y, rumbler.Key.highCurve, deltaTime);
+
+        return intensity;
+    }
+
+    private float GetMaxValue(float value, AnimationCurve animationCurve, float time)
+    {
+        if(time < animationCurve.keys.Last().time)
+        {
+            value = Mathf.Max(value, animationCurve.Evaluate(time));
+        }
+        return value;
     }
 }
