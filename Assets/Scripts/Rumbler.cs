@@ -20,6 +20,12 @@ public class Rumbler : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        rumblerObjects.Clear();
+        Gamepad.current.SetMotorSpeeds(0, 0);
+    }
+
     public void Update()
     {
         var intensity = rumblerObjects.Aggregate(Vector2.zero, GetHighestIntensity);
