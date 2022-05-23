@@ -1,10 +1,8 @@
 {
-    "name": "Jam.EditorAssembly",
+    "name": "MidiSharpAssembly",
     "rootNamespace": "",
     "references": [],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

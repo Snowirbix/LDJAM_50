@@ -1,10 +1,10 @@
 {
-    "name": "Jam.EditorAssembly",
+    "name": "Jam.ScriptableObjectsAssembly",
     "rootNamespace": "",
-    "references": [],
-    "includePlatforms": [
-        "Editor"
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

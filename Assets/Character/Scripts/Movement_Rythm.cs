@@ -44,7 +44,6 @@ public class Movement_Rythm : MonoBehaviour
 
         inputActions = new Character_Controls();
         inputActions.Player.Jump.performed += _ => Jump();
-
         inputActions.Player.Attack.performed += _ => Attack();
 
         forward = Vector3.left;

@@ -1,0 +1,19 @@
+{
+    "name": "Jam.MusicAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4c942179a16fa3f45870584673be0309",
+        "GUID:f871ca3a7bb353f48b485aef9d2e9efa",
+        "GUID:626070ea3273cb844a310aa4f53b31fa",
+        "GUID:fddfac26adc400a46bdb23eb69790fd0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

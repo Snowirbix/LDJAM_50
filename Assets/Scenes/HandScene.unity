@@ -2990,7 +2990,7 @@ PrefabInstance:
     - target: {fileID: 3992556968612427320, guid: ef1ff8c798b88a442a1b4693b227c38a,
         type: 3}
       propertyPath: maxHealth
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3992556968612427320, guid: ef1ff8c798b88a442a1b4693b227c38a,
         type: 3}
@@ -3270,7 +3270,7 @@ PrefabInstance:
     - target: {fileID: 3992556968612427320, guid: ef1ff8c798b88a442a1b4693b227c38a,
         type: 3}
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
-      value: Rumbler, Assembly-CSharp
+      value: Rumbler, Jam.ScriptableObjectsAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 3992556968612427320, guid: ef1ff8c798b88a442a1b4693b227c38a,
         type: 3}
@@ -3351,7 +3351,7 @@ PrefabInstance:
     - target: {fileID: 3992556968612427320, guid: ef1ff8c798b88a442a1b4693b227c38a,
         type: 3}
       propertyPath: damageEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: RumblerObject, Assembly-CSharp
+      value: RumblerObject, Jam.ScriptableObjectsAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 4470314092492032213, guid: ef1ff8c798b88a442a1b4693b227c38a,
         type: 3}
@@ -3842,7 +3842,7 @@ PrefabInstance:
     - target: {fileID: 8718415718844382724, guid: ef1ff8c798b88a442a1b4693b227c38a,
         type: 3}
       propertyPath: attackEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Rumbler, Assembly-CSharp
+      value: Rumbler, Jam.ScriptableObjectsAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 8718415718844382724, guid: ef1ff8c798b88a442a1b4693b227c38a,
         type: 3}
@@ -3853,7 +3853,7 @@ PrefabInstance:
     - target: {fileID: 8718415718844382724, guid: ef1ff8c798b88a442a1b4693b227c38a,
         type: 3}
       propertyPath: attackEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: RumblerObject, Assembly-CSharp
+      value: RumblerObject, Jam.ScriptableObjectsAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 8718415718844382725, guid: ef1ff8c798b88a442a1b4693b227c38a,
         type: 3}
