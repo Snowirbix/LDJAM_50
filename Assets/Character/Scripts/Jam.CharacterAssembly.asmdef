@@ -1,0 +1,18 @@
+{
+    "name": "Jam.CharacterAssembly",
+    "rootNamespace": "",
+    "references": [
+        "Jam.InputAssembly",
+        "Jam.EditorAssembly",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

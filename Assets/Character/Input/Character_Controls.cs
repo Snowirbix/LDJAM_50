@@ -193,7 +193,7 @@ public partial class @Character_Controls : IInputActionCollection2, IDisposable
                     ""id"": ""1ecd4836-e44f-432b-9049-c96793c48c94"",
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
-                    ""processors"": ""AxisDeadzone(min=0.2,max=1)"",
+                    ""processors"": ""AxisDeadzone(min=0.8,max=1)"",
                     ""groups"": """",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
