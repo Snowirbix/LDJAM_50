@@ -41,4 +41,9 @@ public class Health : MonoBehaviour
         }
     }
 
+    public bool IsAlive()
+    {
+        return !isDead;
+    }
+
 }
