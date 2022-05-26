@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,40 +12,32 @@ public class Healthbar : MonoBehaviour
     public RectTransform damageBar;
     public RectTransform healthBar;
     protected float maxWidth;
-    protected List<Change> changes = new ();
 
-    protected struct Change
-    {
-        public float healthRatio;
-        public float time;
-    }
+    private WaitForSeconds delay;
 
     private void Awake()
     {
-        maxWidth = backgroundBar.rect.width;
-    }
-
-    private void Update()
-    {
-        for (int i = changes.Count-1; i >= 0; i--)
-        {
-            if (Time.unscaledTime > changes[i].time + deltaTime)
-            {
-                damageBar.sizeDelta = new Vector2(changes[i].healthRatio * maxWidth, damageBar.sizeDelta.y);
-                changes.RemoveAt(i);
-            }
-        }
+        maxWidth = healthBar.rect.width;
+        delay = new WaitForSeconds(deltaTime);
     }
 
     public void Damage (int damageAmount, int health, int maxHealth)
     {
         float healthRatio = (float)health / (float)maxHealth;
-        healthBar.sizeDelta = new Vector2(healthRatio * maxWidth, healthBar.sizeDelta.y);
+        float newWidth = healthRatio * maxWidth;
 
-        // delayed update
-        Change change = new ();
-        change.healthRatio = healthRatio;
-        change.time = Time.unscaledTime;
-        changes.Add(change);
+        ChangeWidthBar(healthBar, newWidth);
+        StartCoroutine(DelayDamageBar(newWidth));
+    }
+
+    private IEnumerator DelayDamageBar(float width)
+    {
+        yield return delay;
+        ChangeWidthBar(damageBar, width);
+    }
+
+    private void ChangeWidthBar(RectTransform bar, float width)
+    {
+        bar.sizeDelta = new Vector2(width, bar.sizeDelta.y);
     }
 }
